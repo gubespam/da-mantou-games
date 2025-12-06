@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xiao Mantou Games</title>
+    <script type="text/javascript">
+      // Handle redirect from 404.html without causing a full page reload.
+      // The 404 page passes the original path in `?p=...` (and optional `&q=...`),
+      // we reconstruct the original URL and update the history so the SPA router
+      // handles the route instead of performing another network navigation.
+      (function(){
+        try {
+          var params = new URLSearchParams(window.location.search);
+          if (params.has('p')) {
+            var p = params.get('p') || '';
+            var q = params.get('q') || '';
+            p = p.replace(/~and~/g, '&');
+            q = q.replace(/~and~/g, '&');
+            var reconstructedPath = p ? '/' + p : '/';
+            if (q) reconstructedPath += '?' + q;
+            if (window.location.hash) reconstructedPath += window.location.hash;
+            var base = '/da-mantou-games';
+            if (!reconstructedPath.startsWith(base)) reconstructedPath = base + reconstructedPath;
+            // Replace the URL in history without reloading so React Router can render
+            // the correct route inside the SPA.
+            window.history.replaceState({}, '', reconstructedPath);
+          }
+        } catch (e) {
+          console.error('Error handling 404 redirect:', e);
+        }
+      }());
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
