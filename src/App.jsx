@@ -2,7 +2,7 @@
 import './App.css';
 import { Link, Routes, Route } from 'react-router-dom';
 import mantouLogo from './images/mantou.png';
-
+import Reversible from './Reversible.jsx';
 
 function App() {
   return (

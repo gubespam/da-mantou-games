@@ -9,4 +9,4 @@ const Reversible = () => {
   );
 };
 
-export default CheckersChess;
+export default Reversible;
