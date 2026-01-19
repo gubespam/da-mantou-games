@@ -14,14 +14,15 @@ function App() {
             <div className="menu-container">
               <img src={mantouLogo} alt="Mantou Logo" className="mantou-logo" />
               <h1>Da Mantou Games</h1>
-              <p className="subtitle">Little games by the bigger mantou</p>
+              <p className="subtitle">Bigger games by Daddy mantou</p>
               <nav className="vertical-menu">
-                <Link className="menu-item" to="/da-mantou-games/reversible">Reversible</Link>
+                <Link className="menu-item" to="/da-mantou-games/#math">Math</Link>
+                {/* <Link className="menu-item" to="/da-mantou-games#reversible">Reversible</Link> */}
               </nav>
             </div>
           }
         />
-        <Route path="/da-mantou-games/reversible" element={<Reversible />} />
+        {/* <Route path="/da-mantou-games#reversible" element={<Reversible />} /> */}
       </Routes>
     </div>
   );
