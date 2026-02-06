@@ -1,0 +1,75 @@
+.math-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #3a3a3a;
+  padding: 2rem;
+}
+
+.math-title {
+  font-size: 25pt;
+  color: #f0f0f0;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.toggle-options {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.toggle-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2a2a2a;
+  background-color: #c8b5f5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #d9c8f7;
+}
+
+.toggle-btn.active {
+  background-color: #d4a574;
+}
+
+.main-menu {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.menu-btn {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2a2a2a;
+  background-color: #c8b5f5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.menu-btn:hover {
+  background-color: #d9c8f7;
+  transform: translateY(-2px);
+}
+
+.menu-btn:active {
+  transform: translateY(0);
+}
