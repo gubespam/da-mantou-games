@@ -1,11 +1,20 @@
 
 import './App.css';
+import { useState } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import mantouLogo from './images/mantou.png';
 import Reversible from './Reversible.jsx';
 import MathMenu from './MathMenu.jsx';
+import PracticeGame from './math/PracticeGame.jsx';
 
 function App() {
+  const [activeOperations, setActiveOperations] = useState({
+    add: false,
+    subtract: false,
+    multiply: false,
+    divide: false,
+  });
+
   return (
     <div className="App">
       <Routes>
@@ -23,7 +32,8 @@ function App() {
             </div>
           }
         />
-        <Route path="/da-mantou-games/math" element={<MathMenu />} />
+        <Route path="/da-mantou-games/math" element={<MathMenu activeOperations={activeOperations} setActiveOperations={setActiveOperations} />} />
+        <Route path="/da-mantou-games/math/practice" element={<PracticeGame activeOperations={activeOperations} />} />
         {/* <Route path="/da-mantou-games#reversible" element={<Reversible />} /> */}
       </Routes>
     </div>

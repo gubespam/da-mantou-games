@@ -1,15 +1,7 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './MathMenu.css';
 
-export default function MathMenu() {
-  const [activeOperations, setActiveOperations] = useState({
-    add: false,
-    subtract: false,
-    multiply: false,
-    divide: false,
-  });
-
+export default function MathMenu({ activeOperations, setActiveOperations }) {
   const toggleOperation = (operation) => {
     setActiveOperations((prev) => ({
       ...prev,
