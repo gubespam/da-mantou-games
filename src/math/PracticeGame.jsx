@@ -78,6 +78,13 @@ export default function PracticeGame({ activeOperations }) {
 
   // Generate wrong answers
   const generateWrongAnswers = (correct, focusSet, allProblems) => {
+    // TODO clean this up:
+    // Start with correct answer - put into the candidate pool
+    // Randomly pick a direction (up or down) and a variance (1 or 2)
+    // If direction is down, then generate a new candidate answer by applying the variance in the chosen direction to the minimum of all the answers in the pool
+    // If the generated candidate is negative, discard it
+    // Loop back to "Randomly..." step above until we have 3 candidates in the pool (correct answer + 2 wrong answers)
+
     const wrong = new Set();
     const maxAttempts = 100;
     let attempts = 0;
