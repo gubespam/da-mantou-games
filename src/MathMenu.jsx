@@ -1,18 +1,39 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './MathMenu.css';
 
 export default function MathMenu({ activeOperations, setActiveOperations }) {
+  const [showWarning, setShowWarning] = useState(false);
+  const navigate = useNavigate();
+
   const toggleOperation = (operation) => {
-    setActiveOperations((prev) => ({
-      ...prev,
-      [operation]: !prev[operation],
-    }));
+    const newOps = { ...activeOperations, [operation]: !activeOperations[operation] };
+    setActiveOperations(newOps);
+    if (Object.values(newOps).some(Boolean)) setShowWarning(false);
+  };
+
+  useEffect(() => {
+    if (Object.values(activeOperations).some(Boolean)) setShowWarning(false);
+  }, [activeOperations]);
+
+  const handleStart = (path) => {
+    if (Object.values(activeOperations).some(Boolean)) {
+      navigate(path);
+    } else {
+      setShowWarning(true);
+    }
   };
 
   return (
     <div className="math-menu-container">
       <h1 className="math-title">Math Mantou</h1>
       
+      {showWarning && (
+        <div className="warning-message" style={{ textAlign: 'center', marginBottom: '12px', color: 'red' }} role="alert">
+          Please select at least one operation (add, substract, etc.).
+        </div>
+      )}
+
       <div className="toggle-options">
         <button
           className={`toggle-btn ${activeOperations.add ? 'active' : ''}`}
@@ -41,12 +62,12 @@ export default function MathMenu({ activeOperations, setActiveOperations }) {
       </div>
 
       <div className="main-menu">
-        <Link to="/da-mantou-games/math/practice" className="menu-btn">
+        <button className="menu-btn" onClick={() => handleStart('/da-mantou-games/math/practice')}>
           Practice
-        </Link>
-        <Link to="/da-mantou-games/math/speed-drill" className="menu-btn">
+        </button>
+        <button className="menu-btn" onClick={() => handleStart('/da-mantou-games/math/speed-drill')}>
           Speed Drill
-        </Link>
+        </button>
       </div>
     </div>
   );

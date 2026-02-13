@@ -1,6 +1,6 @@
 
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import mantouLogo from './images/mantou.png';
 import Reversible from './Reversible.jsx';
@@ -8,12 +8,30 @@ import MathMenu from './MathMenu.jsx';
 import PracticeGame from './math/PracticeGame.jsx';
 
 function App() {
-  const [activeOperations, setActiveOperations] = useState({
+  const defaultOperations = {
     add: false,
     subtract: false,
     multiply: false,
     divide: false,
+  };
+
+  const [activeOperations, setActiveOperations] = useState(() => {
+    try {
+      const saved = localStorage.getItem('dmg.math.activeOperations');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      // ignore and fall back to defaults
+    }
+    return defaultOperations;
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('dmg.math.activeOperations', JSON.stringify(activeOperations));
+    } catch (e) {
+      // ignore storage errors
+    }
+  }, [activeOperations]);
 
   return (
     <div className="App">
