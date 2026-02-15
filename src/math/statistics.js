@@ -2,7 +2,7 @@
 // Manages problem stats stored under localStorage key "dmg.math".
 // Exports a small API used by games to read/update statistics.
 
-const STORAGE_KEY = 'dmg.math';
+const STORAGE_KEY = 'dmg.math.problems';
 const DEFAULT_SCORE_MS = 30000; // 30 seconds default
 const MAX_LOGS = 20; // keep up to 20 most-recent logs per problem
 const SCORE_LOOKBACK = 8; // average over last 8 attempts
@@ -38,6 +38,24 @@ function _createDefaultStats() {
     for (let a = 1; a <= 10; a++) {
       for (let b = 1; b <= 10; b++) {
         const key = _getKey(a,b);
+        switch (op) {
+          case '+':
+            // all pairs valid for addition
+            break;
+          case '-':
+            // only include pairs where a >= b to avoid negative results
+            if (a < b) continue;
+            break;
+          case '*':
+            // all pairs valid for multiplication
+            break;
+          case '/':
+            // only include pairs where a is divisible by b to avoid fractions
+            if (a % b !== 0) continue;
+            break;
+          default:
+            continue; // skip unknown ops
+        }
         out[op][key] = {
           p: { opa: a, opb: b, oper: op },
           score: DEFAULT_SCORE_MS,
