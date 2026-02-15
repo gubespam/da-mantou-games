@@ -168,15 +168,7 @@ export default function PracticeGame({ activeOperations }) {
     setSessionProblems(newSessionProblems);
 
     // Calculate correct answer
-    let answer;
-    const { opa, opb, oper } = problem.p;
-    if (oper === '+') answer = opa + opb;
-    else if (oper === '-'){
-      answer = opa - opb;
-    }
-    else if (oper === '*') answer = opa * opb;
-    else if (oper === '/') answer = Math.round(opa / opb); // simplified for now
-
+    const answer = problem.p.ans;
     const allAnswers = generateAnswerSet(answer, currentFocusSet, []);
 
     setProblem(problem.p);

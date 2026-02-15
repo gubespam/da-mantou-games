@@ -56,8 +56,12 @@ function _createDefaultStats() {
           default:
             continue; // skip unknown ops
         }
+        const answer = op === '+' ? a + b :
+                       op === '-' ? a - b :
+                       op === '*' ? a * b :
+                       op === '/' ? Math.round(a / b) : null;
         out[op][key] = {
-          p: { opa: a, opb: b, oper: op },
+          p: { opa: a, opb: b, oper: op, ans: answer },
           score: DEFAULT_SCORE_MS,
           logs: []
         };
