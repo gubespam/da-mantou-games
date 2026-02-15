@@ -14,7 +14,6 @@ const FOCUS_SET_SIZE = 4;
 const FOCUS_SET_IMPROVEMENT_PERCENT = 5;
 const CORRECT_ANSWERS_TO_ROTATE = 4;
 const FOCUS_SET_PERCENTAGE = 40;
-const ANSWER_VARIANCE = [1, 2];
 
 // State enum
 const SCREEN_START = 'start';
@@ -76,43 +75,35 @@ export default function PracticeGame({ activeOperations }) {
     showNextProblem(newFocusSet, []);
   };
 
-  // Generate wrong answers
-  const generateWrongAnswers = (correct, focusSet, allProblems) => {
-    // TODO clean this up:
+  // Generate a set of answers to show the user
+  // Includes the correct answer and 2 wrong answers that are close to the correct answer
+  const generateAnswerSet = (correct, focusSet, allProblems) => {
     // Start with correct answer - put into the candidate pool
     // Randomly pick a direction (up or down) and a variance (1 or 2)
-    // If direction is down, then generate a new candidate answer by applying the variance in the chosen direction to the minimum of all the answers in the pool
+    // If direction is down, then generate a new candidate answer by applying the variance
+    //   in the chosen direction to the minimum of all the answers in the pool
     // If the generated candidate is negative, discard it
-    // Loop back to "Randomly..." step above until we have 3 candidates in the pool (correct answer + 2 wrong answers)
+    // Loop back to "Randomly..." step above until we have 3 candidates
+    //   in the pool (correct answer + 2 wrong answers)
 
-    const wrong = new Set();
-    const maxAttempts = 100;
-    let attempts = 0;
-
-    while (wrong.size < 2 && attempts < maxAttempts) {
-      attempts++;
-      const variance = ANSWER_VARIANCE[Math.floor(Math.random() * ANSWER_VARIANCE.length)];
+    const candidates = new Set();
+    candidates.add(correct);
+    while(candidates.size < 3) {
+      const variance = Math.random() < 0.5 ? 1 : 2;
       const direction = Math.random() < 0.5 ? -1 : 1;
-      const candidate = correct + (variance * direction);
-
-      if (candidate > 0 && candidate !== correct && !wrong.has(candidate)) {
-        // Verify all answers are 1 or 2 increments apart
-        const allAnswers = [correct, ...Array.from(wrong), candidate].sort((a, b) => a - b);
-        let valid = true;
-        for (let i = 1; i < allAnswers.length; i++) {
-          const diff = allAnswers[i] - allAnswers[i - 1];
-          if (diff !== 1 && diff !== 2) {
-            valid = false;
-            break;
-          }
+      if (direction === -1) {
+        const minCandidate = Math.min(...candidates);
+        const newCandidate = minCandidate - variance;
+        if (newCandidate >= 0) {
+          candidates.add(newCandidate);
         }
-        if (valid) {
-          wrong.add(candidate);
-        }
+      } else {
+        const maxCandidate = Math.max(...candidates);
+        const newCandidate = maxCandidate + variance;
+        candidates.add(newCandidate);
       }
     }
-
-    return Array.from(wrong);
+    return Array.from(candidates).sort((a, b) => a - b);
   };
 
   // Show next problem
@@ -180,12 +171,13 @@ export default function PracticeGame({ activeOperations }) {
     let answer;
     const { opa, opb, oper } = problem.p;
     if (oper === '+') answer = opa + opb;
-    else if (oper === '-') answer = opa - opb;
+    else if (oper === '-'){
+      answer = opa - opb;
+    }
     else if (oper === '*') answer = opa * opb;
     else if (oper === '/') answer = Math.round(opa / opb); // simplified for now
 
-    const wrongAnswers = generateWrongAnswers(answer, currentFocusSet, []);
-    const allAnswers = [answer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+    const allAnswers = generateAnswerSet(answer, currentFocusSet, []);
 
     setProblem(problem.p);
     setCorrectAnswer(answer);
