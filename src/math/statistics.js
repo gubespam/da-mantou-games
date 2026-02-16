@@ -1,6 +1,8 @@
 // Statistics model for dmg.math
 // Manages problem stats stored under localStorage key "dmg.math".
 // Exports a small API used by games to read/update statistics.
+//
+// See Statistics.md for design and usage notes.
 
 const STORAGE_KEY = 'dmg.math.problems';
 const DEFAULT_SCORE_MS = 30000; // 30 seconds default
