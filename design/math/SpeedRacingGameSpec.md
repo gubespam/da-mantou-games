@@ -45,7 +45,7 @@ When the user chooses an answer, begin moving the car’s center point horizonta
 * Right anchor: An answer matching the session maximum means the car’s target position is 50 px from the right side of the screen
 * Interpolate the target position between the min and max based on the anchor points above.
 
-Move the car horizontally toward its target position at the same speed that the barriers move downward, scaled according to the session min and max. The overall effect is that the car appears to move at a 45 degree angle (horizontally and vertically at the same speed). Before writing the code for this, write out the formula needed for calculating the horizontal speed.
+Move the car horizontally toward its target position at the same speed that the barriers move downward. The overall effect is that the car appears to move at a 45 degree angle (horizontally and vertically at the same speed). 
 
 # End of session
 
@@ -66,10 +66,5 @@ After the final round:
 * Call trimLogs on the statistics after calculating the user’s improvement
 * Present the user with a “Main menu” button to return to the main menu.
 
-# Implementation
-
-1. Before beginning, consider the pros and cons of choosing a DOM + svg approach versus a canvas approach. Considerations are ease of incorporating new graphics and complexity of the code for manipulating the position of the objects in the game. The goal is code that is as simple as possible. List the pros and cons of each and confirm with the user before beginning the implementation.
-
-2. Write a Markdown document (design/math/SpeedDrillRacer.md) giving the overall architecture of the views, components and other logic for this game.
-
-Don’t implement any code yet.
+# Design
+See SpeedRacingGameDesign.md

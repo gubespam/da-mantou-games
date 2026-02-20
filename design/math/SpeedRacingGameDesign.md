@@ -108,5 +108,6 @@ Use DOM + SVG + CSS transforms, with requestAnimationFrame where needed.
 - Add unit tests for the mapping functions `targetX(ans, min, max, L, R)` and the timing math (pure functions).
 
 **Next steps**
+Review SpeedRacingGameSpec.md
 * Implement UI components (`DemoPanel`, `RaceArea`, `Car`, `BarrierPair`).
 * Implement statistics hooks and end-of-session scoring UI.
