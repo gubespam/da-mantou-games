@@ -30,7 +30,7 @@ export default function SpeedDrillRacer({ activeOperations }) {
   const [barrierY, setBarrierY] = useState(-BARRIER_HEIGHT);
   const [roundState, setRoundState] = useState('idle'); // idle | running | passed | crashed | finished
 
-  const ref = useRef({ raf: null, lastTime: 0, barrierSpeed: 0, carVx: 0 });
+  const ref = useRef({ raf: null, lastTime: 0, barrierSpeed: 0, carVx: 0, barrierY: -BARRIER_HEIGHT, carX: window.innerWidth / 2, carTargetX: window.innerWidth / 2 });
   const [sessionMin, setSessionMin] = useState(0);
   const [sessionMax, setSessionMax] = useState(1);
   const [showResults, setShowResults] = useState(null);
@@ -97,9 +97,12 @@ export default function SpeedDrillRacer({ activeOperations }) {
     if (!p) return endSession();
     setProblem(p.p);
     setStartTime(Date.now());
-    setBarrierY(-BARRIER_HEIGHT);
-    setCarX(window.innerWidth / 2);
-    setCarTargetX(window.innerWidth / 2);
+    ref.current.barrierY = -BARRIER_HEIGHT;
+    ref.current.carX = window.innerWidth / 2;
+    ref.current.carTargetX = window.innerWidth / 2;
+    setBarrierY(ref.current.barrierY);
+    setCarX(ref.current.carX);
+    setCarTargetX(ref.current.carTargetX);
     setRoundState('idle');
     const scoreMs = getProblemScore(p.p.opa, p.p.opb, p.p.oper) || 30000;
     const T = scoreMs / 1000 + 1;
@@ -130,8 +133,9 @@ export default function SpeedDrillRacer({ activeOperations }) {
     const target = mapAnswerToX(ans);
     setCarTargetX(target);
     const vy = ref.current.barrierSpeed || 0;
-    const vx = Math.sign(target - carX) * Math.abs(vy);
+    const vx = Math.sign(target - ref.current.carX) * Math.abs(vy);
     ref.current.carVx = vx;
+    ref.current.carTargetX = target;
     setRoundState('running');
     setStartTime(Date.now());
   };
@@ -141,31 +145,30 @@ export default function SpeedDrillRacer({ activeOperations }) {
     const dt = Math.min(0.1, (now - ref.current.lastTime) / 1000);
     ref.current.lastTime = now;
     const vy = ref.current.barrierSpeed || 0;
-    setBarrierY(prev => {
-      const ny = prev + vy * dt;
-      return ny;
-    });
+    // update barrier position in ref and state
+    ref.current.barrierY = (ref.current.barrierY || 0) + vy * dt;
+    setBarrierY(ref.current.barrierY);
     if (roundState === 'running') {
-      setCarX(prev => {
-        const vx = ref.current.carVx || 0;
-        let nx = prev + vx * dt;
-        if ((vx > 0 && nx >= carTargetX) || (vx < 0 && nx <= carTargetX)) {
-          nx = carTargetX;
-          ref.current.carVx = 0;
-        }
-        return nx;
-      });
+      const vx = ref.current.carVx || 0;
+      let nx = (ref.current.carX || 0) + vx * dt;
+      const targetX = ref.current.carTargetX != null ? ref.current.carTargetX : carTargetX;
+      if ((vx > 0 && nx >= targetX) || (vx < 0 && nx <= targetX)) {
+        nx = targetX;
+        ref.current.carVx = 0;
+      }
+      ref.current.carX = nx;
+      setCarX(ref.current.carX);
     }
 
     const carCenterY = window.innerHeight * 0.75;
     const carFrontY = carCenterY - CAR_HEIGHT / 2;
-    if (barrierY >= carFrontY) {
+    if (ref.current.barrierY >= carFrontY) {
       cancelAnimationFrame(ref.current.raf);
       ref.current.raf = null;
       const correctAns = problem.ans;
       const correctX = mapAnswerToX(correctAns);
       const tolerance = CAR_WIDTH / 2;
-      const passed = Math.abs(carX - correctX) <= tolerance;
+      const passed = Math.abs((ref.current.carX || 0) - correctX) <= tolerance;
       if (passed) {
         const timeToCorrect = Date.now() - startTime;
         const attempts = 1;
