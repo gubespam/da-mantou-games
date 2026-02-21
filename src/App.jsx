@@ -6,6 +6,7 @@ import mantouLogo from './images/mantou.png';
 import Reversible from './Reversible.jsx';
 import MathMenu from './MathMenu.jsx';
 import PracticeGame from './math/PracticeGame.jsx';
+import SpeedDrillRacer from './math/SpeedDrillRacer.jsx';
 
 function App() {
   const defaultOperations = {
@@ -52,6 +53,7 @@ function App() {
         />
         <Route path="/da-mantou-games/math" element={<MathMenu activeOperations={activeOperations} setActiveOperations={setActiveOperations} />} />
         <Route path="/da-mantou-games/math/practice" element={<PracticeGame activeOperations={activeOperations} />} />
+        <Route path="/da-mantou-games/math/speed-drill" element={<SpeedDrillRacer activeOperations={activeOperations} />} />
         {/* <Route path="/da-mantou-games#reversible" element={<Reversible />} /> */}
       </Routes>
     </div>
