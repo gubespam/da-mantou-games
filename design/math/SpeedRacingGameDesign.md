@@ -40,6 +40,44 @@ This document describes the high-level architecture, components, data flows, ani
 - Left anchor `L = 50px`, Right anchor `R = screenWidth - 50px`. `startX` (car center starting x) = `screenWidth / 2`.
 - Save `oldScore` and `oldAccuracy` snapshots for each problem for end-of-session comparison.
 
+**State transition - Main game**
+
+- State: demo (initial)
+  - Show the demo screen with instructions
+  - Wait for user to click "Start" or "Back"
+  - Transition to playing (round-play) when user clicks "Start"
+
+- State: playing (round-play)
+  - Display the current round candidate answers
+  - Move car and barriers according to State transition - Car
+  - Transition to results when last problem is answered or car crashes
+
+- State: results (session-end)
+  - Show results to user
+
+**State transition - Car**
+
+- State: straight-ahead (initial)
+  - move barriers according barrierSpeed
+  - V_x = 0 (car not moving horizontally)
+  - Transition to crashed when barrier reaches car and carX != targetX
+  - Transition to panning when user chooses an answer
+
+- State: panning
+  - move barriers according barrierSpeed
+  - V_x calculated according to carX and targetX
+  - Move carX according to V_x
+  - Transition to straight-ahead when carX reaches targetX
+  - Transition to crashed when barrier reaches car and carX != targetX
+  - Transition to panning when user chooses an answer
+
+- State: crashed
+  - barrierSpeed = 0
+  - V_x = 0
+  - Show explosion animation
+  - Pause for 2 seconds
+  - End the session (results state in main game)
+
 **Per-round timing and motion**
 
 - For the chosen problem, obtain `score_ms` = `getProblemScore(opa, opb, oper)` (ms).
@@ -67,8 +105,6 @@ This document describes the high-level architecture, components, data flows, ani
   $$ v_x = sign(D_x) * abs(v_y) \quad (\text{px/s}) $$
 
   This ensures the car appears to travel at a 45 degree angle until carCenterX = targetX.
-
->>>>> Continue reviewing from here...
 
 **Animation approach**
 
