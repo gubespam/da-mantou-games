@@ -261,6 +261,8 @@ export default function SpeedDrillRacer({ activeOperations }) {
         </div>
 
         <div className="answers-row">
+          {/* TODO use generateAnswerSet(correctAnswer) to generate the set of answers instead of what's below;
+                   this should be done when each round starts */}
           <button onClick={() => handleChooseAnswer(sessionMin)}>{Math.round(sessionMin)}</button>
           <button onClick={() => handleChooseAnswer(problem.ans)}>{problem.ans}</button>
           <button onClick={() => handleChooseAnswer(sessionMax)}>{Math.round(sessionMax)}</button>

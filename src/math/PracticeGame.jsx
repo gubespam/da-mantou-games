@@ -77,7 +77,7 @@ export default function PracticeGame({ activeOperations }) {
 
   // Generate a set of answers to show the user
   // Includes the correct answer and 2 wrong answers that are close to the correct answer
-  const generateAnswerSet = (correct, focusSet, allProblems) => {
+  const generateAnswerSet = (correct) => {
     // Start with correct answer - put into the candidate pool
     // Randomly pick a direction (up or down) and a variance (1 or 2)
     // If direction is down, then generate a new candidate answer by applying the variance
@@ -169,7 +169,7 @@ export default function PracticeGame({ activeOperations }) {
 
     // Calculate correct answer
     const answer = problem.p.ans;
-    const allAnswers = generateAnswerSet(answer, currentFocusSet, []);
+    const allAnswers = generateAnswerSet(answer);
 
     setProblem(problem.p);
     setCorrectAnswer(answer);
