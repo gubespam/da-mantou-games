@@ -41,29 +41,39 @@ This document describes the high-level architecture, components, data flows, ani
 - Save `oldScore` and `oldAccuracy` snapshots for each problem for end-of-session comparison.
 
 **State transition - Main game**
+- Using setScreen
 
 - State: demo (initial)
   - Show the demo screen with instructions
   - Wait for user to click "Start" or "Back"
-  - Transition to playing (round-play) when user clicks "Start"
+  - Transition to playing when user clicks "Start"
 
-- State: playing (round-play)
+- State: playing
   - Display the current round candidate answers
+  - Car state moves to running
   - Move car and barriers according to State transition - Car
   - Transition to results when last problem is answered or car crashes
 
-- State: results (session-end)
+- State: results
   - Show results to user
+  - End of session
 
 **State transition - Car**
+- Using setRoundState
 
-- State: straight-ahead (initial)
+- State: idle (initial)
+  - Before first round starts
+  - Transition to running when first round starts
+
+- State: running (initial)
+  - car is driving traight ahead
   - move barriers according barrierSpeed
   - V_x = 0 (car not moving horizontally)
   - Transition to crashed when barrier reaches car and carX != targetX
   - Transition to panning when user chooses an answer
 
 - State: panning
+  - car is moving horitzontally toward the chosen answer
   - move barriers according barrierSpeed
   - V_x calculated according to carX and targetX
   - Move carX according to V_x
@@ -72,11 +82,12 @@ This document describes the high-level architecture, components, data flows, ani
   - Transition to panning when user chooses an answer
 
 - State: crashed
+  - car is not moved; it crashed into the barrier
   - barrierSpeed = 0
   - V_x = 0
   - Show explosion animation
   - Pause for 2 seconds
-  - End the session (results state in main game)
+  - Main game: End the session
 
 **Per-round timing and motion**
 
