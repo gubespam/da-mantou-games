@@ -30,8 +30,6 @@ The position of the car is fixed on a horizontal line (it does not move vertical
 
 The bounding box of the car is 80 px high and 50 px wide.
 
-The barriers are 50 px high. The gap between 
-
 The obstacle consists of two barriers, one that extends from the gap to the left side of the screen. The other barrier is on the right, extending to the right side of the screen. The gap between them is 80 px wide. See the mockup in `design/math/Math Racing Game Mockup.png`.
 
 One barrier pair is shown for each round. The barriers start above the top of the screen and move downward. At each round, the speed of descent of the barriers is calculated so that the barriers will reach the front of the car (car vertical position minus half the car’s height) after X seconds, where X is the score of the current problem plus one second.
