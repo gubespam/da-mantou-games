@@ -56,7 +56,7 @@ function YearMarkers({ yearLines, minDatePos, yearsPerEm, height }) {
               left: `${pixelPos}px`,
             }}
           >
-            <div className="year-label">{yearLine.year}</div>
+            <div className="year-label">{Math.abs(yearLine.year)} {yearLine.year < 0 ? 'BC' : 'AD'}</div>
           </div>
         );
       })}
