@@ -6,7 +6,7 @@ import { schedule, plan, scaleTimelineToView, SCALE, ROW_HEIGHT, EM_PX } from '.
 
 const ITEM_TOP_OFFSET = 3 * EM_PX;
 
-function EventView({ position, title }) {
+function EventView({ position, title, startDate }) {
   return (
     <div
       className="event"
@@ -18,12 +18,13 @@ function EventView({ position, title }) {
       }}
       title={title}
     >
-      {title}
+      <div className="event-title">{title}</div>
+      <div className="event-date">{startDate}</div>
     </div>
   );
 }
 
-function PeriodView({ position, title }) {
+function PeriodView({ position, title, dateRange }) {
   return (
     <div
       className="period"
@@ -31,11 +32,11 @@ function PeriodView({ position, title }) {
         left: `${position.left}px`,
         top: `${position.top + ITEM_TOP_OFFSET}px`,
         width: `${position.width}px`,
-        height: `${position.height}px`,
       }}
       title={title}
     >
-      {title}
+      <div className="period-title">{title}</div>
+      <div className="period-date">{dateRange.start} - {dateRange.end}</div>
     </div>
   );
 }
@@ -80,7 +81,8 @@ export default function HistoryTimeline() {
   useEffect(() => {
     const rawItems = eventsData[cycle]
       .map(createHistoryItem)
-      .filter(Boolean);
+      .filter(Boolean)
+      .sort((a,b) => a.start().absolutePos() - b.start().absolutePos());
     const scheduledItems = schedule(rawItems, yearsPerEm);
     const planResult = plan(scheduledItems, yearsPerEm);
     setPlannedData(planResult);
@@ -132,6 +134,7 @@ export default function HistoryTimeline() {
                   key={idx}
                   position={position}
                   title={historyItem.title}
+                  startDate={historyItem.date.year}
                 />
               );
             } else {
@@ -140,6 +143,10 @@ export default function HistoryTimeline() {
                   key={idx}
                   position={position}
                   title={historyItem.title}
+                  dateRange={({
+                    start: historyItem.begin.year,
+                    end: historyItem.end.year
+                  })}
                 />
               );
             }

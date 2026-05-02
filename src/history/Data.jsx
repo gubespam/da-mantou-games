@@ -10,9 +10,7 @@ export function createHistoryItem(data) {
         const title = data.title || data.period || 'Untitled';
         return new Event(title, data.desc || '', date);
       }
-    }
-
-    if (data.type === 'period' || (data.begin && data.end)) {
+    }else if (data.type === 'period' || (data.begin && data.end)) {
       const begin = new EventDate();
       begin.year = data.begin.year;
       begin.epoch = data.begin.epoch;

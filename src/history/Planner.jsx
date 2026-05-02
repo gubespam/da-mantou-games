@@ -3,7 +3,6 @@ const ITEM_HEIGHT = 2; // em
 export const SCALED_ITEM_HEIGHT = ITEM_HEIGHT * SCALE;
 export const ROW_HEIGHT = ITEM_HEIGHT * 2; // em
 export const EVENT_FIXED_WIDTH = 15; // em
-const MIN_DISPLAY_WIDTH = 2; // em
 export const EM_PX = 16;
 const MIN_SPACING_EM = 10;
 const MAX_SPACING_EM = 200;
@@ -35,6 +34,7 @@ export function chooseYearLineSpan(yearsPerEm) {
 
 export function schedule(inputItems, yearsPerEm) {
   const SPACING = scaleViewToTimeline(2, yearsPerEm);
+  const MIN_DISPLAY_WIDTH = scaleViewToTimeline( 1.0, yearsPerEm); // em
   const preprocessed = [];
 
   for (const item of inputItems) {
@@ -44,8 +44,7 @@ export function schedule(inputItems, yearsPerEm) {
     if (item.type === 'event') {
       displayWidth = EVENT_FIXED_WIDTH;
     }
-
-    if (displayWidth < MIN_DISPLAY_WIDTH) {
+    else if (displayWidth < MIN_DISPLAY_WIDTH) {
       continue;
     }
 
