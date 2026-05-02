@@ -10,7 +10,8 @@ Supporting class `HDate` that represents dates of items.
   "year": "{YYYY}", # integer
   "month": "{MM}", # integer, optional
   "day": "{DD}", # integer, optional
-  "epoch": "{AD | BC}" # enum
+  "epoch": "{AD | BC}", # enum
+  "absolutePos()": epoch == 'AD' ? this.year : -this.year + 1
 }
 ```
 ### HistoryItem

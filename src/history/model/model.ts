@@ -1,11 +1,14 @@
 type Epoch = 'AD' | 'BC';
 type HistoryItemType = 'event' | 'period';
 
-export interface EventDate {
-  year: number;
+export class EventDate {
+  year!: number;
   month?: number;
   day?: number;
-  epoch: Epoch;
+  epoch!: Epoch;
+  absolutePos(): number {
+    return this.epoch === 'AD' ? this.year : -this.year + 1; // +1 because there is no year 0
+  }
 }
 
 export abstract class HistoryItem {
