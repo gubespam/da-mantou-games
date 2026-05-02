@@ -3,9 +3,8 @@ type HistoryItemType = 'event' | 'period';
 
 export class EventDate {
   year!: number;
-  month?: number;
-  day?: number;
   epoch!: Epoch;
+
   absolutePos(): number {
     return this.epoch === 'AD' ? this.year : -this.year + 1; // +1 because there is no year 0
   }
@@ -25,7 +24,7 @@ export abstract class HistoryItem {
   abstract finish(): EventDate;
 
   width(): number {
-    return dateToNumber(this.finish()) - dateToNumber(this.start());
+    return this.finish().absolutePos() - this.start().absolutePos();
   }
 }
 
@@ -84,13 +83,4 @@ export interface Position {
 export interface PlannedItem {
   item: ScheduledItem;
   position: Position;
-}
-
-// Helper function to convert EventDate to a numeric value for calculations
-function dateToNumber(date: EventDate): number {
-  const y = date.epoch === 'AD' ? date.year : -date.year;
-  const m = date.month || 0;
-  const d = date.day || 0;
-  // Approximate conversion: year * 365 + month * 30 + day
-  return y * 365 + m * 30 + d;
 }
