@@ -1,0 +1,56 @@
+.period {
+    display: block;
+    position: absolute;
+    background-color: orange;
+    color: black;
+    padding: 5px;
+}
+
+.event {
+    display: block;
+    position: absolute;
+    padding: 5px;
+}
+
+.event::before {
+  content: "\2666"; /* Unicode for black diamond suit */
+  color: rgb(105, 124, 245);
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+table.years {
+    border: none;
+    border-collapse: collapse;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+tr.years td {
+    width: 100px;
+    height: 50px;
+    text-align: center;
+}
+
+table.year-line {
+    position: absolute;
+    top: 35px;
+    left: 25px;
+}
+
+tr.year-line td {
+    height: 300px;
+    border-right: 1px solid rgb(138, 138, 138);
+    border-bottom: none;
+    border-top: none;
+}
+
+tr.year-line td.offset {
+    width: 50px;
+}
+
+tr.year-line td.right-offset {
+    border-right: none;
+}

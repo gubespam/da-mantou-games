@@ -7,6 +7,7 @@ import Reversible from './Reversible.jsx';
 import MathMenu from './MathMenu.jsx';
 import PracticeGame from './math/PracticeGame.jsx';
 import SpeedDrillRacer from './math/SpeedDrillRacer.jsx';
+import TimelinePrototype from './TimelinePrototype.jsx';
 
 function App() {
   const defaultOperations = {
@@ -46,6 +47,7 @@ function App() {
               <p className="subtitle">Bigger games by Daddy mantou</p>
               <nav className="vertical-menu">
                 <Link className="menu-item" to="/da-mantou-games/math">Math</Link>
+                <Link className="menu-item" to="/da-mantou-games/timeline-prototype">Timeline Prototype</Link>
                 {/* <Link className="menu-item" to="/da-mantou-games#reversible">Reversible</Link> */}
               </nav>
             </div>
@@ -54,6 +56,7 @@ function App() {
         <Route path="/da-mantou-games/math" element={<MathMenu activeOperations={activeOperations} setActiveOperations={setActiveOperations} />} />
         <Route path="/da-mantou-games/math/practice" element={<PracticeGame activeOperations={activeOperations} />} />
         <Route path="/da-mantou-games/math/speed-drill" element={<SpeedDrillRacer activeOperations={activeOperations} />} />
+        <Route path="/da-mantou-games/timeline-prototype" element={<TimelinePrototype />} />
         {/* <Route path="/da-mantou-games#reversible" element={<Reversible />} /> */}
       </Routes>
     </div>
