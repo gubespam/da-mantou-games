@@ -195,7 +195,7 @@ export default function PracticeGame({ activeOperations }) {
 
       // Correct answer
       const timeToCorrect = Date.now() - startTime;
-      const endTime = setTimeout(() => {
+      const endTimer = setTimeout(() => {
         // Log the result
         addLog(currentProblem, timeToCorrect, 1);
 
@@ -262,9 +262,9 @@ export default function PracticeGame({ activeOperations }) {
           // Session complete
           endSession();
         }
-      }, 1000);
+      }, 2200);
 
-      return () => clearTimeout(endTime);
+      return () => clearTimeout(endTimer);
     } else {
       // Incorrect answer - just disable it, allow user to try other answers
       const newDisabled = new Set(disabledAnswers);
@@ -331,30 +331,33 @@ export default function PracticeGame({ activeOperations }) {
 
   // Playing screen
   if (screen === SCREEN_PLAYING && currentProblem) {
-    const problemText = `${currentProblem.opa} ${currentProblem.oper} ${currentProblem.opb} = _`;
-    
     return (
       <div className="game-container">
         <div className="game-header">
           <button className="back-button-small" onClick={handleBack}>← Back</button>
           <div className="round-indicator">Round {currentRound}/{ROUNDS_PER_SESSION}</div>
         </div>
-        <div className="problem-section">
-          <div className="problem-text">{problemText}</div>
+        <div className="question">
+          <div className="operand left">{currentProblem.opa}</div>
+          <div className="operator">{currentProblem.oper}</div>
+          <div className="operand right">{currentProblem.opb}</div>
         </div>
-        <div className="answers-section">
-          {answers.map((answer, index) => (
-            <button
-              key={index}
-              className={`answer-button ${
-                selectedAnswer === answer ? (answer === correctAnswer ? 'correct' : 'incorrect') : ''
-              } ${disabledAnswers.has(answer) ? 'disabled' : ''}`}
-              onClick={() => handleAnswerClick(answer)}
-              disabled={disabledAnswers.has(answer) || (selectedAnswer !== null && selectedAnswer !== answer)}
-            >
-              {answer}
-            </button>
-          ))}
+        <div className="answers">
+          {answers.map((answer, index) => {
+            const isDisabled = disabledAnswers.has(answer) || (selectedAnswer !== null && selectedAnswer !== answer);
+            const isSelected = selectedAnswer === answer;
+            const isCorrect = answer === correctAnswer;
+            return (
+              <div
+                id={`a-${index}`}
+                key={index}
+                className={`answer ${isSelected && isCorrect ? 'highlight' : ''} ${isDisabled ? 'vanish' : ''}`}
+                onClick={() => handleAnswerClick(answer)}
+                disabled={isDisabled}
+              >
+                {answer}
+              </div>
+          )})}
         </div>
       </div>
     );

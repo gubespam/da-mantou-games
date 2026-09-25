@@ -1,0 +1,155 @@
+@import url('https://googleapis.com');
+
+/*
+Font sizes are set to relative "rem" unit values,
+making them relative to the html root element.
+*/
+
+html {
+  font-size: 1em;
+}
+
+/* Adjust the root size based on page width */
+@media screen and (max-width: 300px) {
+  html {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  html {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  html {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  html {
+    font-size: 1.8em;
+  }
+}
+
+body {
+  background-color: #101010;
+  color: #cfa455;
+  text-align: center;
+  /* font-family: "Century Gothic", "Avant Garde", AppleGothic, Arial, sans-serif; */
+  /* font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", sans-serif; */
+  font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.question {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  
+  font-size: 320%;
+  
+  /* border: 1px solid red; */
+}
+
+.question > * {
+  flex: auto;
+  flex-grow: 0;
+  
+  border-color: #202020;
+  background-color: #202020;
+
+  /* Make the border a circle */
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+
+  /* Center the text inside the circle */
+  display: flex; /* Required for next two to work */
+  align-items: center;     /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
+}
+
+.operator {
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 3rem;
+  width: auto;
+  height: auto;
+}
+
+.answers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  
+  /* border: 1px solid cyan; */
+  font-size: 200%;
+  color: #8b8bff;
+}
+
+.answers > * {
+  flex: auto;
+  flex-grow: 0;
+  
+  /* border: 1px solid white; */
+  border-color: #202020;
+  background-color: #202020;
+
+  /* Make the border a circle */
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+
+  /* Center the text inside the circle */
+  display: flex; /* Required for next two to work */
+  align-items: center;     /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
+}
+
+.highlight {
+  /* Name, duration, timing function, and fill-mode */
+  animation: highlight 3.5s;
+}
+
+@keyframes highlight {
+  0% {
+    color: white;
+    background-color: #228eb8; /* The initial color */
+  }
+  15% { /* 2fc4fe - brighter */
+    color: white;
+    background-color: #228eb8; /* Stays solid until 30% of the time passes */
+  }
+  100% {
+    color: white;
+    background-color: transparent;
+    /* Smoothly fades out to transparent */
+  }
+}
+
+.vanish {
+  /* Name, duration, timing function, and fill-mode */
+  animation: vanish 0.75s ease-in-out forwards;
+}
+
+@keyframes vanish {
+  0% {
+  }
+  100% {
+    color: transparent;
+    background-color: transparent; /* Smoothly fades out to transparent */
+  }
+}
