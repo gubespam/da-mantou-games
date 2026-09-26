@@ -3,7 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import mantouLogo from './images/mantou.png';
-import Reversible from './Reversible.jsx';
+import Reversible from './reversible/Reversible.jsx';
 import MathMenu from './MathMenu.jsx';
 import PracticeGame from './math/PracticeGame.jsx';
 import SpeedDrillRacer from './math/SpeedDrillRacer.jsx';
@@ -50,7 +50,7 @@ function App() {
                 <Link className="menu-item" to="/da-mantou-games/math">Math</Link>
                 <Link className="menu-item" to="/da-mantou-games/history-timeline">History Timeline</Link>
                 <Link className="menu-item" to="/da-mantou-games/timeline-prototype">Timeline Prototype</Link>
-                {/* <Link className="menu-item" to="/da-mantou-games#reversible">Reversible</Link> */}
+                <Link className="menu-item" to="/da-mantou-games/reversible">Reversible</Link>
               </nav>
             </div>
           }
@@ -60,7 +60,7 @@ function App() {
         <Route path="/da-mantou-games/math/speed-drill" element={<SpeedDrillRacer activeOperations={activeOperations} />} />
         <Route path="/da-mantou-games/timeline-prototype" element={<TimelinePrototype />} />
         <Route path="/da-mantou-games/history-timeline" element={<HistoryTimeline />} />
-        {/* <Route path="/da-mantou-games#reversible" element={<Reversible />} /> */}
+        <Route path="/da-mantou-games/reversible" element={<Reversible />} />
       </Routes>
     </div>
   );
