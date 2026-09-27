@@ -186,6 +186,23 @@ function makeMove(board, row, col, player) {
   return newBoard;
 }
 
+function determineWinner(board){
+  // count number of pieces of each player
+  let white = 0
+  let black = 0
+  forEachCell(board, (row, col, cell) => {
+    if(cell === Players.WHITE){
+      white++
+    }
+    if(cell === Players.BLACK){
+      black++
+    }
+  })
+  return white > black ? Players.WHITE : 
+    black == white ? Players.BLACK :
+    undefined
+}
+
 // States
 // - No Game Active / Game Over
 //   - Show last winner
@@ -202,19 +219,20 @@ function Cell({ player, valid, onClick }) {
   );
 }
 
-function initializeBoard2(){
-  const setup = [
-    "    wb b",
-    "   bbbww",
-    "   bbb  ",
-    "   bb   ",
-    "   bw   ",
-    "        ",
-    "        ",
-    "        ",
-  ]
+function initializeBoard2(setup){
+  // const setup = [
+  //   "    wb b",
+  //   "   bbbww",
+  //   "   bbb  ",
+  //   "   bb   ",
+  //   "   bw   ",
+  //   "        ",
+  //   "        ",
+  //   "        ",
+  // ]
   return setup.map(row => [...row].map(cell => ({ w: Players.WHITE, b: Players.BLACK }[cell])))
 }
+window.initializeBoard2 = initializeBoard2
 
 function dumpBoard(){
   const board = window.board
@@ -227,8 +245,9 @@ function dumpBoard(){
 window.dumpBoard = dumpBoard
 
 // almost won
-// ['b wwwbbb', 'bbbbbwbb', 'bwbbbbwb', 'bbwbwwwb', 'bbbwwbbb', 'bbwbwbbb', 'bbbwbbbb', 'bbbbbbbb']
+// setBoard(initializeBoard2(['b wwwbbb', 'bbbbbwbb', 'bwbbbbwb', 'bbwbwwwb', 'bbbwwbbb', 'bbwbwbbb', 'bbbwbbbb', 'bbbbbbbb']))
 // setPlayer("white")
+// setGameMode("play")
 
 function GameStatus({gameMode, winner, currentPlayer}){
   if(gameMode == GameModes.FINISHED){
@@ -266,13 +285,15 @@ function Reversible() {
   window.setBoard = setBoard
   window.player = currentPlayer
   window.setPlayer = setCurrentPlayer
+  window.setGameMode = setGameMode
+  window.setWinner = setWinner
 
   const [validMovesGrid, validMoves] = useMemo(() => validMovesBoard(board, currentPlayer), [board, currentPlayer])
 
   return (
     <div className="game-page">
       <h1>Reversible</h1>
-      <GameStatus props={{gameMode, winner, currentPlayer}} />
+      <GameStatus {...{ gameMode, winner, currentPlayer }} />
       <div className="options">
         <div>Show valid moves</div>
         <ToggleSlide
@@ -310,6 +331,8 @@ function Reversible() {
                           // this player cannot go either, so game over
                           setGameMode(GameModes.FINISHED)
                           console.log("Game over")
+                          // determine who won
+                          setWinner(determineWinner(board))
                         } else {
                           console.log(`Skipping ${other(currentPlayer)} - no valid moves`)
                         }
