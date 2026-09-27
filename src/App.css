@@ -11,6 +11,11 @@
   color: #f3f4f6;
 }
 
+.App .cross-site {
+  display: block;
+  font-size: 0.75em;
+}
+
 
 .menu-container {
   background: rgba(36, 37, 46, 0.98);
@@ -80,7 +85,7 @@
   font-size: 1rem;
   font-weight: bold;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .game-page p {
   color: #a1a1aa;

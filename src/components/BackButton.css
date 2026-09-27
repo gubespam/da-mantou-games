@@ -1,0 +1,12 @@
+.back {
+  font-size: 0.6em;
+  background-color: #2c2b2b;
+  width: fit-content;
+  padding: 0.3em;
+  border: none;
+  color: rgb(200, 200, 200);
+  /* these next 2 lines align it to left even though parent
+     element is center-aligned for other elements */
+  display: block;
+  margin-right: auto;
+}

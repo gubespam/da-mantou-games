@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useState, useEffect } from 'react';
+import BackButton from '../components/BackButton';
 import ToggleSlide from '../components/ToggleSlide';
 import './Reversible.css';
 
@@ -295,6 +296,7 @@ function Reversible() {
 
   return (
     <div className="game-page">
+      <BackButton />
       <h1>Reversible</h1>
       <GameStatus {...{ gameMode, winner, currentPlayer }} 
         onNewGame={() => {

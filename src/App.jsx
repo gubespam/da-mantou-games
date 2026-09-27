@@ -44,23 +44,24 @@ function App() {
           element={
             <div className="menu-container">
               <img src={mantouLogo} alt="Mantou Logo" className="mantou-logo" />
+              <a class="cross-site" href="/xiao-mantou-games">Go to Xiao Mantou Games</a>
               <h1>Da Mantou Games</h1>
               <p className="subtitle">Bigger games by Daddy mantou</p>
               <nav className="vertical-menu">
+                <Link className="menu-item" to="/da-mantou-games/reversible">Reversible</Link>
                 <Link className="menu-item" to="/da-mantou-games/math">Math</Link>
                 <Link className="menu-item" to="/da-mantou-games/history-timeline">History Timeline</Link>
                 <Link className="menu-item" to="/da-mantou-games/timeline-prototype">Timeline Prototype</Link>
-                <Link className="menu-item" to="/da-mantou-games/reversible">Reversible</Link>
               </nav>
             </div>
           }
         />
+        <Route path="/da-mantou-games/reversible" element={<Reversible />} />
         <Route path="/da-mantou-games/math" element={<MathMenu activeOperations={activeOperations} setActiveOperations={setActiveOperations} />} />
         <Route path="/da-mantou-games/math/practice" element={<PracticeGame activeOperations={activeOperations} />} />
         <Route path="/da-mantou-games/math/speed-drill" element={<SpeedDrillRacer activeOperations={activeOperations} />} />
         <Route path="/da-mantou-games/timeline-prototype" element={<TimelinePrototype />} />
         <Route path="/da-mantou-games/history-timeline" element={<HistoryTimeline />} />
-        <Route path="/da-mantou-games/reversible" element={<Reversible />} />
       </Routes>
     </div>
   );
