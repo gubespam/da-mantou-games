@@ -8,7 +8,7 @@
 
 .board {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: var(--cell-gap);
     width: min(70vw, 70vh);
     max-width: 100%;
@@ -18,7 +18,7 @@
 .row {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--cell-gap);
 }
 
@@ -36,7 +36,7 @@
 }
 
 .show-valid .cell.valid {
-    background-color: blue;
+    background-color: #3a6a9b;
 }
 
 .cell::after {
