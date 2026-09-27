@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useState, useEffect } from 'react';
+import ToggleSlide from '../components/ToggleSlide';
 import './Reversible.css';
 
 const Players = Object.freeze({
@@ -141,6 +142,7 @@ function Cell({ player, valid, onClick }) {
 function Reversible() {
   const [currentPlayer, setCurrentPlayer] = useState(Players.WHITE)
   const [board, setBoard] = useState(initializeBoard());
+  const [showValidMoves, setShowValidMoves] = useState(false);
 
   const validMovesGrid = useMemo(() => validMovesBoard(board, currentPlayer), [board])
 
@@ -151,10 +153,15 @@ function Reversible() {
         <div>Current Player</div>
         <Cell player={currentPlayer}></Cell>
       </div>
-      <div className='options'>
-        
+      <div className="options">
+        <div>Show valid moves</div>
+        <ToggleSlide
+          checked={showValidMoves}
+          onChange={setShowValidMoves}
+          ariaLabel="Enable option"
+        />
       </div>
-      <div className="board">
+      <div className={`board ${showValidMoves ? 'show-valid' : ''}`}>
         {board.map((row, rowIndex) => (
           <div className="row" key={rowIndex}>
             {row.map((cellValue, colIndex) => {

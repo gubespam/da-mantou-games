@@ -35,7 +35,7 @@
     place-items: center;
 }
 
-.cell.valid {
+.show-valid .cell.valid {
     background-color: blue;
 }
 
@@ -57,6 +57,7 @@
 .current-player {
     display: flex;
     justify-content: center;
+    gap: 0.2rem;
     text-align: center;
     font-size: 0.9em;
 }
@@ -65,4 +66,13 @@
     max-width: 1.5rem;
     max-height: 1.5rem;
     background-color: transparent;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 0.9em;
 }
