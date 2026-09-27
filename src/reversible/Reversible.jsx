@@ -249,18 +249,21 @@ window.dumpBoard = dumpBoard
 // setPlayer("white")
 // setGameMode("play")
 
-function GameStatus({gameMode, winner, currentPlayer}){
+function GameStatus({gameMode, winner, currentPlayer, onNewGame}){
   if(gameMode == GameModes.FINISHED){
+    const newGame = <button className='new-game' onClick={() => onNewGame()}>New Game</button>
     if(winner){
       return (
         <div className="current-player winner">
           <div>Winner</div>
           <Cell player={winner}></Cell>
+          {newGame}
         </div>)
     } else {
       return (
         <div className="current-player tie">
           <div>Tie!</div>
+          {newGame}
         </div>)
     }
   } else if(gameMode == GameModes.PLAYING){
@@ -293,7 +296,14 @@ function Reversible() {
   return (
     <div className="game-page">
       <h1>Reversible</h1>
-      <GameStatus {...{ gameMode, winner, currentPlayer }} />
+      <GameStatus {...{ gameMode, winner, currentPlayer }} 
+        onNewGame={() => {
+          setCurrentPlayer(Players.BLACK)
+          setBoard(initializeBoard())
+          setGameMode(GameModes.PLAYING)
+          setWinner(undefined)
+        }}
+      />
       <div className="options">
         <div>Show valid moves</div>
         <ToggleSlide
