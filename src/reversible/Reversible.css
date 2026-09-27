@@ -3,14 +3,7 @@
 }
 
 .game-page {
-    background: none;
     background-color: #344651;
-}
-
-.title {
-    color: #cccccc;
-    font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .board {
@@ -42,6 +35,10 @@
     place-items: center;
 }
 
+.cell.valid {
+    background-color: blue;
+}
+
 .cell::after {
     content: '';
     width: 78%;
@@ -55,4 +52,17 @@
 
 .cell.black::after {
     background-color: #0f0f0f;
+}
+
+.current-player {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.current-player .cell {
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+    background-color: transparent;
 }
