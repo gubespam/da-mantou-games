@@ -1,41 +1,13 @@
 
 import './App.css';
-import { useState, useEffect } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import mantouLogo from './images/mantou.png';
 import Reversible from './reversible/Reversible.jsx';
-import MathMenu from './MathMenu.jsx';
-import PracticeGame from './math/PracticeGame.jsx';
-import SpeedDrillRacer from './math/SpeedDrillRacer.jsx';
+import MathApp from './math/MathApp.jsx';
 import TimelinePrototype from './TimelinePrototype.jsx';
 import HistoryTimeline from './history/HistoryTimeline.jsx';
 
 function App() {
-  const defaultOperations = {
-    add: false,
-    subtract: false,
-    multiply: false,
-    divide: false,
-  };
-
-  const [activeOperations, setActiveOperations] = useState(() => {
-    try {
-      const saved = localStorage.getItem('dmg.math.activeOperations');
-      if (saved) return JSON.parse(saved);
-    } catch (e) {
-      // ignore and fall back to defaults
-    }
-    return defaultOperations;
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('dmg.math.activeOperations', JSON.stringify(activeOperations));
-    } catch (e) {
-      // ignore storage errors
-    }
-  }, [activeOperations]);
-
   return (
     <div className="App">
       <Routes>
@@ -57,9 +29,7 @@ function App() {
           }
         />
         <Route path="/da-mantou-games/reversible" element={<Reversible />} />
-        <Route path="/da-mantou-games/math" element={<MathMenu activeOperations={activeOperations} setActiveOperations={setActiveOperations} />} />
-        <Route path="/da-mantou-games/math/practice" element={<PracticeGame activeOperations={activeOperations} />} />
-        <Route path="/da-mantou-games/math/speed-drill" element={<SpeedDrillRacer activeOperations={activeOperations} />} />
+        <Route path="/da-mantou-games/math/*" element={<MathApp />} />
         <Route path="/da-mantou-games/timeline-prototype" element={<TimelinePrototype />} />
         <Route path="/da-mantou-games/history-timeline" element={<HistoryTimeline />} />
       </Routes>
