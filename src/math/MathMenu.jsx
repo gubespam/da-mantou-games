@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import './MathMenu.css';
 
 export default function MathMenu({ activeOperations, setActiveOperations }) {
@@ -26,6 +27,7 @@ export default function MathMenu({ activeOperations, setActiveOperations }) {
 
   return (
     <div className="math-menu-container">
+      <BackButton />
       <h1 className="math-title">Math Mantou</h1>
       
       {showWarning && (
