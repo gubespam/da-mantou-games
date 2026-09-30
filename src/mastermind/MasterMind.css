@@ -1,0 +1,64 @@
+
+.playarea {
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(130, 74, 54);
+}
+
+.guess-row {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.guess-row .guess {
+  flex: 1;
+  display: flex;
+}
+
+.guess-row .score {
+  flex: 1;
+  display: flex;
+}
+
+.score-peg {
+  flex: 1;
+
+}
+
+.code-peg {
+  width: 2em;
+  height: 2em;
+  border-radius: 1em;
+}
+
+.code-peg.none {
+  background-color: rgb(132, 100, 100);
+}
+
+.code-peg.red {
+  background-color: red;
+}
+
+.code-peg.blue {
+  background-color: blue;
+}
+
+.code-peg.green {
+  background-color: green;
+}
+
+.code-peg.yellow {
+  background-color: yellow;
+}
+
+.code-peg.white {
+  background-color: white;
+}
+
+.code-peg.black {
+  background-color: black;
+}
