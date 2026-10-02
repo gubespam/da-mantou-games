@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import BackButton from '../components/BackButton';
 import './MasterMind.css';
 
@@ -63,8 +62,11 @@ function CodePeg({value, onClick, children}){
 // A small grid with all the colors, using flex to organize them into a 2x3 grid
 function CodePegPicker({onSelect}){
   return <div className="code-picker">
-    {Object.entries(CodePegs).map((key, value) => 
-      <CodePeg key={value} value={value} onClick={() => onSelect(value)} />
+    {Object.entries(CodePegs).map(([key, value]) => 
+      <CodePeg key={value} value={value} onClick={(event) => {
+        event.stopPropagation() // don't trigger click on parent element (the code peg)
+        onSelect(value)
+      }} />
     )}
   </div>
 }
@@ -72,14 +74,20 @@ function CodePegPicker({onSelect}){
 // A guess row which the user can edit (picking peg colors)
 function PickableGuess({guess, onChange}){
   const [pickerOpen, setPickerOpen] = useState(false)
+  const [pickerIndex, setPickerIndex] = useState(0)
   return <div className="guess-row pickable">
     {guess.map((value, index) => (
       <CodePeg key={index} value={value} onClick={() => {
         setPickerOpen(true)
+        console.log("picker open")
+        setPickerIndex(index)
       }}>
         {
-          pickerOpen ? (<CodePegPicker onSelect={(picked) => {
+          // console.log(`${pickerOpen} && ${pickerIndex} == ${index}`) || 
+          pickerOpen && pickerIndex == index ? 
+          (<CodePegPicker onSelect={(picked) => {
             setPickerOpen(false)
+            console.log("close picker")
             const newGuess = [...guess]
             newGuess[index] = picked
             onChange(newGuess)
@@ -93,7 +101,10 @@ function PickableGuess({guess, onChange}){
 // The bar showing the secret while the first player edits it
 function Secret({secret, onChange}){
   return (
-    <PickableGuess guess={secret} onChange={(guess) => onChange(guess)} />
+    <div className="secret">
+      <div>Pick your secret code</div>
+      <PickableGuess guess={secret} onChange={(guess) => onChange(guess)} />
+    </div>
   )
 }
 
