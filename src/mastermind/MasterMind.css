@@ -1,7 +1,4 @@
 
-.playarea {
-}
-
 .board {
   display: flex;
   flex-direction: column;
@@ -69,12 +66,14 @@
 
   margin-top: 4em;
   display: inline-grid;
+  gap: 0.25em;
   grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
 
-  background-color: grey;
+  background-color: rgb(55, 55, 70);
   border: 1px white solid;
 
   font-size: 0.5em;
+  padding: 0.25em;
 }
 
 .code-picker .code-peg {

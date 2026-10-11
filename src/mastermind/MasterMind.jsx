@@ -35,12 +35,15 @@ const GameModes = Object.freeze({
 const BOARD_WIDTH = 4;
 const BOARD_HEIGHT = 10;
 
-function emptySecret() {
+function emptyGuess() {
   return new Array(BOARD_WIDTH).fill(undefined);
 }
 
 function emptyBoard() {
-  return Array.from({ length: BOARD_HEIGHT }, () => new Array(BOARD_WIDTH).fill(undefined));
+  return Array.from({ length: BOARD_HEIGHT }, () => ({
+    guess: emptyGuess(),
+    score: emptyGuess()
+  }));
 }
 
 function initializeBoard() {
@@ -142,28 +145,32 @@ function ScoredGuessRow({guess, score}){
 function Board({board, guessIndex, setBoard}){
   return (
     <div className={`board`}>
-      {board.filter((row, rowIndex) => rowIndex <= guessIndex)
+      {board/*.filter((row, rowIndex) => rowIndex <= guessIndex)*/
         .map((row, rowIndex) => (
-          rowIndex == guessIndex ?
-            <PickableGuess guess={row.guess} onChange={(newGuess) => {
+          (rowIndex === guessIndex ?
+            <PickableGuess key={rowIndex} guess={row.guess} onChange={(newGuess) => {
               const newBoard = [...board]
-              const newRow = [...row]
+              const newRow = {...row}
               newRow.guess = newGuess
               newBoard[guessIndex] = newRow
               setBoard(newBoard)
             }} />
-          : <ScoredGuessRow guess={row.guess} score={row.score} />
-          ))
-      }
+          : <ScoredGuessRow key={rowIndex} guess={row.guess} score={row.score} />
+          )))
+        }
     </div>)
 }
 
 function MasterMind() {
-  const [secret, setSecret] = useState(() => emptySecret())
+  const [secret, setSecret] = useState(() => emptyGuess())
   const [board, setBoard] = useState(initializeBoard());
   const [guessIndex, setGuessIndex] = useState(0)
   const [gameMode, setGameMode] = useState(GameModes.SET_CODE);
   const [hasWon, setHasWon] = useState(false);
+
+  Object.entries({board, setBoard, guessIndex, setGuessIndex, gameMode, setGameMode}).forEach(([key, value]) => {
+    window[key] = value
+  })
 
   const submitSecret = (secret) => {
     setSecret(secret)
@@ -193,7 +200,7 @@ function MasterMind() {
       {
         gameMode === GameModes.FINISHED &&
           <button className="new-game" onClick={() => {
-            setSecret(emptySecret())
+            setSecret(emptyGuess())
             setBoard(initializeBoard());
             setGuessIndex(0)
             setGameMode(GameModes.SET_CODE);
@@ -209,7 +216,7 @@ function MasterMind() {
         }
         {
           gameMode !== GameModes.SET_CODE &&
-            <Board board={board} setBoard={setBoard} />
+            <Board board={board} setBoard={setBoard} guessIndex={guessIndex}/>
         }
         {
           gameMode !== GameModes.FINISHED &&
