@@ -33,7 +33,7 @@
 }
 
 .code-peg.none {
-  background-color: rgb(132, 100, 100);
+  background-color: #4c352d;
 }
 
 .code-peg.red {
@@ -58,6 +58,14 @@
 
 .code-peg.black {
   background-color: black;
+}
+
+/* TODO .pickable :not(.code-picker) > .code-peg:hover */
+.pickable .code-peg:hover {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #bbb299;
+  box-sizing: border-box
 }
 
 .code-picker {
