@@ -1,7 +1,10 @@
 
-.board {
+.mm-board {
   display: flex;
   flex-direction: column;
+  gap: 0.25em;
+  padding: 0.25em;
+
   background-color: rgb(130, 74, 54);
 }
 
@@ -9,11 +12,14 @@
   flex: 1;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: 0.25em;
 }
 
 .guess-row .guess {
   flex: 1;
   display: flex;
+  gap: 0.25em;
 }
 
 .guess-row .score {
@@ -84,6 +90,26 @@
   padding: 0.25em;
 }
 
+.code-peg:hover .code-picker {
+  /* hack: stop picker from moving when parent peg is hovered */
+  /* amount here matches twice border-width of .code-picker */
+  top: -2px;
+  left: -2px;
+}
+
 .code-picker .code-peg {
   flex: 0 0 25%;
+}
+
+.guess-submit {
+  background: rgb(89, 170, 89);
+  border: none;
+  color: #e7e7e7;
+  border-radius: 0.75em;
+  padding: 0.5em;
+}
+
+.guess-submit:hover {
+  background: rgb(111 191 111);
+  color: #f2f2f2;
 }

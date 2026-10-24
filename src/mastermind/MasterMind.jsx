@@ -75,38 +75,41 @@ function CodePegPicker({onSelect}){
 }
 
 // A guess row which the user can edit (picking peg colors)
-function PickableGuess({guess, onChange}){
+function PickableGuess({guess, onChange, onSubmit}){
   const [pickerOpen, setPickerOpen] = useState(false)
   const [pickerIndex, setPickerIndex] = useState(0)
   return <div className="guess-row pickable">
-    {guess.map((value, index) => (
-      <CodePeg key={index} value={value} onClick={() => {
-        setPickerOpen(true)
-        console.log("picker open")
-        setPickerIndex(index)
-      }}>
-        {
-          // console.log(`${pickerOpen} && ${pickerIndex} == ${index}`) || 
-          pickerOpen && pickerIndex == index ? 
-          (<CodePegPicker onSelect={(picked) => {
-            setPickerOpen(false)
-            console.log("close picker")
-            const newGuess = [...guess]
-            newGuess[index] = picked
-            onChange(newGuess)
-          }} />) : null
-        }
-      </CodePeg>
-    ))}
+    <div className="guess">
+      {guess.map((value, index) => (
+        <CodePeg key={index} value={value} onClick={() => {
+          setPickerOpen(true)
+          console.log("picker open")
+          setPickerIndex(index)
+        }}>
+          {
+            // console.log(`${pickerOpen} && ${pickerIndex} == ${index}`) || 
+            pickerOpen && pickerIndex == index ? 
+            (<CodePegPicker onSelect={(picked) => {
+              setPickerOpen(false)
+              console.log("close picker")
+              const newGuess = [...guess]
+              newGuess[index] = picked
+              onChange(newGuess)
+            }} />) : null
+          }
+        </CodePeg>
+      ))}
+    </div>
+    <button className="guess-submit" onClick={onSubmit}>Submit</button>
   </div>
 }
 
 // The bar showing the secret while the first player edits it
-function Secret({secret, onChange}){
+function Secret({secret, onChange, onSubmit}){
   return (
     <div className="secret">
       <div>Pick your secret code</div>
-      <PickableGuess guess={secret} onChange={(guess) => onChange(guess)} />
+      <PickableGuess guess={secret} onChange={(guess) => onChange(guess)} onSubmit={onSubmit}/>
     </div>
   )
 }
@@ -142,9 +145,9 @@ function ScoredGuessRow({guess, score}){
     </div>)
 }
 
-function Board({board, guessIndex, setBoard}){
+function Board({board, guessIndex, setBoard, onSubmit}){
   return (
-    <div className={`board`}>
+    <div className="mm-board">
       {board/*.filter((row, rowIndex) => rowIndex <= guessIndex)*/
         .map((row, rowIndex) => (
           (rowIndex === guessIndex ?
@@ -154,7 +157,7 @@ function Board({board, guessIndex, setBoard}){
               newRow.guess = newGuess
               newBoard[guessIndex] = newRow
               setBoard(newBoard)
-            }} />
+            }} onSubmit={onSubmit}/>
           : <ScoredGuessRow key={rowIndex} guess={row.guess} score={row.score} />
           )))
         }
@@ -212,17 +215,11 @@ function MasterMind() {
       <div className={`playarea mm-${gameMode} ${hasWon ? "mm-haswon" : ""}`}>
         {
           gameMode === GameModes.SET_CODE &&
-            <Secret secret={secret} onChange={setSecret}/> 
+            <Secret secret={secret} onChange={setSecret} onSubmit={submitSecret}/> 
         }
         {
           gameMode !== GameModes.SET_CODE &&
-            <Board board={board} setBoard={setBoard} guessIndex={guessIndex}/>
-        }
-        {
-          gameMode !== GameModes.FINISHED &&
-            <button className="guess-submit" 
-              onClick={gameMode === GameModes.GUESSING ? submitGuess : submitSecret} 
-              >Submit</button>
+            <Board board={board} setBoard={setBoard} guessIndex={guessIndex} onSubmit={submitGuess}/>
         }
       </div>
     </div>
