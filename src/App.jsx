@@ -22,7 +22,7 @@ function App() {
               <p className="subtitle">Bigger games by Daddy mantou</p>
               <nav className="vertical-menu">
                 <Link className="menu-item" to="/da-mantou-games/reversible">Reversible</Link>
-                <Link className="menu-item" to="/da-mantou-games/mastermind">MasterMind</Link>
+                <Link className="menu-item" to="/da-mantou-games/mastermind">CodeBreaker</Link>
                 <Link className="menu-item" to="/da-mantou-games/math">Math</Link>
                 <Link className="menu-item" to="/da-mantou-games/history-timeline">History Timeline</Link>
                 <Link className="menu-item" to="/da-mantou-games/timeline-prototype">Timeline Prototype</Link>

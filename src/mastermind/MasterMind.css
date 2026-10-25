@@ -59,6 +59,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.1em;
+  margin-left: 0.4em;
 }
 
 .score-peg {
@@ -126,4 +127,25 @@
 .guess-submit:enabled:hover {
   background: rgb(111 191 111);
   color: #f2f2f2;
+}
+
+.hints {
+  font-size: 0.75em;
+  padding-left: 0.5em;
+  margin-bottom: 0.5em;
+
+  .score-peg {
+    flex: none;
+  }
+
+  .hint-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    span {
+      font-size: 0.45rem;
+      color: #cccccc;
+    }
+  }
 }

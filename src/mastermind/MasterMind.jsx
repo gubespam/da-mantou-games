@@ -236,7 +236,17 @@ function MasterMind() {
   return (
     <div className={`game-page`}>
       <BackButton />
-      <h1>Master Mind</h1>
+      <h1>Code Breaker</h1>
+      <div className='hints'>
+        <div className='hint-row'>
+          <ScoringPeg value="white"></ScoringPeg>
+          <span>Right color, wrong position</span>
+        </div>
+        <div className='hint-row'>
+        <ScoringPeg value="black"></ScoringPeg>
+          <span>Right color, right position</span>
+        </div>
+      </div>
       {
         gameMode === GameModes.FINISHED &&
           <button className="new-game" onClick={() => {
