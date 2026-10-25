@@ -17,19 +17,8 @@
 }
 
 .guess-row .guess {
-  flex: 1;
   display: flex;
   gap: 0.25em;
-}
-
-.guess-row .score {
-  flex: 1;
-  display: flex;
-}
-
-.score-peg {
-  flex: 1;
-
 }
 
 .code-peg {
@@ -59,14 +48,34 @@
 }
 
 .code-peg.white {
-  background-color: white;
+  background-color: #f98300;
 }
 
 .code-peg.black {
+  background-color: #9c9c9c;
+}
+
+.guess-row .score {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.1em;
+}
+
+.score-peg {
+  flex: 1;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 0.25em;
+}
+
+.score-peg.white {
+  background-color: white;
+}
+
+.score-peg.black {
   background-color: black;
 }
 
-/* TODO .pickable :not(.code-picker) > .code-peg:hover */
 .pickable .code-peg:hover {
   border-width: 2px;
   border-style: solid;

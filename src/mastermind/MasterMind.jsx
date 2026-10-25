@@ -124,8 +124,7 @@ function Secret({secret, onChange, onSubmit}){
 
 // A scoring peg on the side of a scored guess row
 function ScoringPeg({value, onClick}){
-  return <div className={`score-peg ${value}`} onClick={onClick}>
-  </div>
+  return <div className={`score-peg ${value}`} onClick={onClick}></div>
 }
 
 // An immutable guess row that has already been scored
