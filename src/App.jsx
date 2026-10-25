@@ -1,5 +1,6 @@
 
 import './App.css';
+import './Shared.css';
 import { Link, Routes, Route } from 'react-router-dom';
 import mantouLogo from './images/mantou.png';
 import Reversible from './reversible/Reversible.jsx';

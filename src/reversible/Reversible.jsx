@@ -295,7 +295,7 @@ function Reversible() {
   const [validMovesGrid, validMoves] = useMemo(() => validMovesBoard(board, currentPlayer), [board, currentPlayer])
 
   return (
-    <div className="game-page">
+    <div className="game-page reversible">
       <BackButton />
       <h1>Reversible</h1>
       <GameStatus {...{ gameMode, winner, currentPlayer }} 

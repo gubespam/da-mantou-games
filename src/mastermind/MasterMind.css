@@ -1,151 +1,159 @@
+.game-page.code-breaker {
 
-.mm-board {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25em;
-  padding: 0.25em;
+  .mm-board {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    padding: 0.25em;
 
-  background-color: rgb(130, 74, 54);
-}
+    background-color: rgb(130, 74, 54);
+  }
 
-.guess-row {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.25em;
-}
+  .guess-row {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25em;
+  }
 
-.guess-row .guess {
-  display: flex;
-  gap: 0.25em;
-}
+  .guess-row .guess {
+    display: flex;
+    gap: 0.25em;
+  }
 
-.code-peg {
-  width: 2em;
-  height: 2em;
-  border-radius: 1em;
-}
+  .code-peg {
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+  }
 
-.code-peg.none {
-  background-color: #4c352d;
-}
+  .code-peg.none {
+    background-color: #4c352d;
+  }
 
-.code-peg.red {
-  background-color: red;
-}
+  .code-peg.one {
+    background-color: red;
+  }
 
-.code-peg.blue {
-  background-color: blue;
-}
+  .code-peg.two {
+    background-color: #2b9bff;
+  }
 
-.code-peg.green {
-  background-color: green;
-}
+  .code-peg.three {
+    background-color: green;
+  }
 
-.code-peg.yellow {
-  background-color: yellow;
-}
+  .code-peg.four {
+    background-color: yellow;
+  }
 
-.code-peg.white {
-  background-color: #f98300;
-}
+  .code-peg.five {
+    background-color: #f98300;
+  }
 
-.code-peg.black {
-  background-color: #9c9c9c;
-}
+  .code-peg.six {
+    background-color: #9c9c9c;
+  }
 
-.guess-row .score {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.1em;
-  margin-left: 0.4em;
-}
-
-.score-peg {
-  flex: 1;
-  width: 0.5em;
-  height: 0.5em;
-  border-radius: 0.25em;
-}
-
-.score-peg.white {
-  background-color: white;
-}
-
-.score-peg.black {
-  background-color: black;
-}
-
-.pickable .code-peg:hover {
-  border-width: 2px;
-  border-style: solid;
-  border-color: #bbb299;
-  box-sizing: border-box
-}
-
-.code-picker {
-  position: relative;
-  z-index: 9999; /* Stays on top of almost everything else */
-
-  margin-top: 4em;
-  display: inline-grid;
-  gap: 0.25em;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
-
-  background-color: rgb(55, 55, 70);
-  border: 1px white solid;
-
-  font-size: 0.5em;
-  padding: 0.25em;
-}
-
-.code-peg:hover .code-picker {
-  /* hack: stop picker from moving when parent peg is hovered */
-  /* amount here matches twice border-width of .code-picker */
-  top: -2px;
-  left: -2px;
-}
-
-.code-picker .code-peg {
-  flex: 0 0 25%;
-}
-
-.guess-submit {
-  padding: 0.5em;
-  border: none;
-  border-radius: 0.75em;
-  background: rgb(89, 170, 89);
-  color: #e7e7e7;
-}
-
-.guess-submit:disabled {
-  background: rgb(126, 126, 126);
-  color: #c3c3c3;
-}
-
-.guess-submit:enabled:hover {
-  background: rgb(111 191 111);
-  color: #f2f2f2;
-}
-
-.hints {
-  font-size: 0.75em;
-  padding-left: 0.5em;
-  margin-bottom: 0.5em;
+  .guess-row .score {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.1em;
+    margin-left: 0.4em;
+  }
 
   .score-peg {
-    flex: none;
+    flex: 1;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
   }
 
-  .hint-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
+  .score-peg.white {
+    background-color: white;
+  }
 
-    span {
-      font-size: 0.45rem;
-      color: #cccccc;
+  .score-peg.black {
+    background-color: black;
+  }
+
+  .pickable .code-peg:hover {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #bbb299;
+    box-sizing: border-box
+  }
+
+  .code-picker {
+    position: relative;
+    z-index: 9999; /* Stays on top of almost everything else */
+
+    margin-top: 4em;
+    display: inline-grid;
+    gap: 0.25em;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
+
+    background-color: rgb(55, 55, 70);
+    border: 1px white solid;
+
+    font-size: 0.5em;
+    padding: 0.25em;
+  }
+
+  .code-peg:hover .code-picker {
+    /* hack: stop picker from moving when parent peg is hovered */
+    /* amount here matches twice border-width of .code-picker */
+    top: -2px;
+    left: -2px;
+  }
+
+  .code-picker .code-peg {
+    flex: 0 0 25%;
+  }
+
+  .guess-submit {
+    padding: 0.5em;
+    border: none;
+    border-radius: 0.75em;
+    background: rgb(89, 170, 89);
+    color: #e7e7e7;
+  }
+
+  .guess-submit:disabled {
+    background: rgb(126, 126, 126);
+    color: #c3c3c3;
+  }
+
+  .guess-submit:enabled:hover {
+    background: rgb(111 191 111);
+    color: #f2f2f2;
+  }
+
+  .hints {
+    font-size: 0.75em;
+    padding-left: 0.5em;
+    margin-bottom: 0.5em;
+
+    .score-peg {
+      flex: none;
+    }
+
+    .hint-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      span {
+        font-size: 0.45rem;
+        color: #cccccc;
+      }
     }
   }
-}
+
+  .winner-status {
+
+  }
+
+
+} /* end of: .game-page.code-breaker

@@ -4,12 +4,12 @@ import './MasterMind.css';
 
 // Code Pegs
 const CodePegs = Object.freeze({
-  RED: "red",
-  BLUE: "blue",
-  GREEN: "green",
-  YELLOW: "yellow",
-  WHITE: "white",
-  BLACK: "black"
+  ONE: "one",
+  TWO: "two",
+  THREE: "three",
+  FOUR: "four",
+  FIVE: "five",
+  SIX: "six",
 });
 
 // Scoring Pegs
@@ -152,7 +152,7 @@ function ScoredGuessRow({guess, score}){
     </div>)
 }
 
-function Board({board, guessIndex, setBoard, onSubmit}){
+function Board({board, guessIndex, setBoard, onSubmit, truncate}){
   return (
     <div className="mm-board">
       {board/*.filter((row, rowIndex) => rowIndex <= guessIndex)*/
@@ -166,7 +166,7 @@ function Board({board, guessIndex, setBoard, onSubmit}){
               setBoard(newBoard)
             }} onSubmit={onSubmit}/>
           : <ScoredGuessRow key={rowIndex} guess={row.guess} score={row.score} />
-          )))
+          ))).filter((row, index) => !truncate || truncate && index < guessIndex)
         }
     </div>)
 }
@@ -201,6 +201,10 @@ function scoreGuess(guess, secret){
   return score
 }
 
+function arrsEqual(a, b){
+  return a.length === b.length && a.every((val, index) => val === b[index])
+}
+
 function MasterMind() {
   const [secret, setSecret] = useState(() => emptyGuess())
   const [board, setBoard] = useState(initializeBoard());
@@ -220,33 +224,39 @@ function MasterMind() {
     const guess = board[guessIndex].guess
     const score = scoreGuess(guess, secret)
 
-    // TODO handle game over - user won
-
     const newBoard = [...board]
     newBoard[guessIndex] = {guess, score}
     setBoard(newBoard)
     setGuessIndex(guessIndex + 1)
 
-    if(guessIndex == BOARD_HEIGHT){
-      // game over
+    // player guessed the code - game over: won
+    if(arrsEqual(guess, secret)){
+      setHasWon(true)
+      setGameMode(GameModes.FINISHED)
+    }
+    // out of guesses - game over: lost
+    else if(guessIndex == BOARD_HEIGHT){
       setGameMode(GameModes.FINISHED)
     }
   }
 
   return (
-    <div className={`game-page`}>
+    <div className="game-page code-breaker">
       <BackButton />
       <h1>Code Breaker</h1>
-      <div className='hints'>
-        <div className='hint-row'>
-          <ScoringPeg value="white"></ScoringPeg>
-          <span>Right color, wrong position</span>
-        </div>
-        <div className='hint-row'>
-        <ScoringPeg value="black"></ScoringPeg>
-          <span>Right color, right position</span>
-        </div>
-      </div>
+      {
+        gameMode === GameModes.GUESSING &&
+          <div className='hints'>
+            <div className='hint-row'>
+              <ScoringPeg value="white"></ScoringPeg>
+              <span>Right color, wrong position</span>
+            </div>
+            <div className='hint-row'>
+            <ScoringPeg value="black"></ScoringPeg>
+              <span>Right color, right position</span>
+            </div>
+          </div>
+      }
       {
         gameMode === GameModes.FINISHED &&
           <button className="new-game" onClick={() => {
@@ -266,9 +276,22 @@ function MasterMind() {
         }
         {
           gameMode !== GameModes.SET_CODE &&
-            <Board board={board} setBoard={setBoard} guessIndex={guessIndex} onSubmit={submitGuess}/>
+            <Board board={board} setBoard={setBoard} 
+              truncate={gameMode === GameModes.FINISHED}
+              guessIndex={guessIndex} 
+              onSubmit={submitGuess}/>
         }
       </div>
+      {
+        gameMode === GameModes.FINISHED &&
+        <div className="winner-status">
+          {
+            hasWon ? 
+              "You won!" :
+              "You lost!"
+          }
+        </div>
+      }
     </div>
   );
 };
