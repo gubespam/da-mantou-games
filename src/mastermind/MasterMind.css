@@ -102,14 +102,19 @@
 }
 
 .guess-submit {
-  background: rgb(89, 170, 89);
-  border: none;
-  color: #e7e7e7;
-  border-radius: 0.75em;
   padding: 0.5em;
+  border: none;
+  border-radius: 0.75em;
+  background: rgb(89, 170, 89);
+  color: #e7e7e7;
 }
 
-.guess-submit:hover {
+.guess-submit:disabled {
+  background: rgb(126, 126, 126);
+  color: #c3c3c3;
+}
+
+.guess-submit:enabled:hover {
   background: rgb(111 191 111);
   color: #f2f2f2;
 }

@@ -78,6 +78,8 @@ function CodePegPicker({onSelect}){
 function PickableGuess({guess, onChange, onSubmit}){
   const [pickerOpen, setPickerOpen] = useState(false)
   const [pickerIndex, setPickerIndex] = useState(0)
+  const submitEnabled = guess.filter(peg => peg === undefined).length === 0
+  console.log('submitEnabled', submitEnabled)
   return <div className="guess-row pickable">
     <div className="guess">
       {guess.map((value, index) => (
@@ -100,7 +102,10 @@ function PickableGuess({guess, onChange, onSubmit}){
         </CodePeg>
       ))}
     </div>
-    <button className="guess-submit" onClick={onSubmit}>Submit</button>
+    <button className="guess-submit" 
+      onClick={() => onSubmit()}
+      disabled={!submitEnabled}
+      >Submit</button>
   </div>
 }
 
@@ -109,7 +114,10 @@ function Secret({secret, onChange, onSubmit}){
   return (
     <div className="secret">
       <div>Pick your secret code</div>
-      <PickableGuess guess={secret} onChange={(guess) => onChange(guess)} onSubmit={onSubmit}/>
+      <PickableGuess 
+        guess={secret} 
+        onChange={(guess) => onChange(guess)} 
+        onSubmit={onSubmit}/>
     </div>
   )
 }
@@ -164,6 +172,36 @@ function Board({board, guessIndex, setBoard, onSubmit}){
     </div>)
 }
 
+// input: array of guess colors, secret
+// output: array of score colors
+function scoreGuess(guess, secret){
+  // black pegs first
+  // white pegs next
+  // undefined: not part of secret
+  const score = new Array(BOARD_WIDTH)
+
+  // compare each peg against secret
+  let blackCount = 0
+  let whiteCount = 0
+  guess.forEach((peg, index) => {
+    // first: black: right color, right position
+    if(secret[index] === peg){
+      blackCount++;
+    }
+    // second: white: right color, wrong position
+    else if(secret.includes(peg)){
+      whiteCount++;
+    }
+  })
+  for(let i = 0; i < blackCount; i++){
+    score[i] = ScorePegs.BLACK
+  }
+  for(let i = blackCount; i < blackCount + whiteCount; i++){
+    score[i] = ScorePegs.WHITE
+  }
+  return score
+}
+
 function MasterMind() {
   const [secret, setSecret] = useState(() => emptyGuess())
   const [board, setBoard] = useState(initializeBoard());
@@ -175,17 +213,17 @@ function MasterMind() {
     window[key] = value
   })
 
-  const submitSecret = (secret) => {
-    setSecret(secret)
+  const submitSecret = () => {
     setGameMode(GameModes.GUESSING)
   }
 
   const submitGuess = () => {
-    const score = [] // TODO calculate score
+    const guess = board[guessIndex].guess
+    const score = scoreGuess(guess, secret)
+
     // TODO handle game over - user won
 
     const newBoard = [...board]
-    const guess = board[guessIndex].guess
     newBoard[guessIndex] = {guess, score}
     setBoard(newBoard)
     setGuessIndex(guessIndex + 1)
