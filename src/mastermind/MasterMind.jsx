@@ -79,21 +79,18 @@ function PickableGuess({guess, onChange, onSubmit}){
   const [pickerOpen, setPickerOpen] = useState(false)
   const [pickerIndex, setPickerIndex] = useState(0)
   const submitEnabled = guess.filter(peg => peg === undefined).length === 0
-  console.log('submitEnabled', submitEnabled)
+
   return <div className="guess-row pickable">
     <div className="guess">
       {guess.map((value, index) => (
         <CodePeg key={index} value={value} onClick={() => {
           setPickerOpen(true)
-          console.log("picker open")
           setPickerIndex(index)
         }}>
           {
-            // console.log(`${pickerOpen} && ${pickerIndex} == ${index}`) || 
             pickerOpen && pickerIndex == index ? 
             (<CodePegPicker onSelect={(picked) => {
               setPickerOpen(false)
-              console.log("close picker")
               const newGuess = [...guess]
               newGuess[index] = picked
               onChange(newGuess)
@@ -212,9 +209,9 @@ function MasterMind() {
   const [gameMode, setGameMode] = useState(GameModes.SET_CODE);
   const [hasWon, setHasWon] = useState(false);
 
-  Object.entries({board, setBoard, guessIndex, setGuessIndex, gameMode, setGameMode}).forEach(([key, value]) => {
-    window[key] = value
-  })
+  // Object.entries({board, setBoard, guessIndex, setGuessIndex, gameMode, setGameMode}).forEach(([key, value]) => {
+  //   window[key] = value
+  // })
 
   const submitSecret = () => {
     setGameMode(GameModes.GUESSING)
