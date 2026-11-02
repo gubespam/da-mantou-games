@@ -200,7 +200,7 @@ function determineWinner(board){
     }
   })
   return white > black ? Players.WHITE : 
-    black == white ? Players.BLACK :
+    black > white ? Players.BLACK :
     undefined
 }
 
