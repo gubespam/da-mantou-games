@@ -7,33 +7,39 @@
   flex-direction: column;
 
   .title {
-    border: solid white 1px;
+    /* border: solid white 1px; */
 
     font-size: 0.8em;
   }
 
   .laps {
-    border: solid blue 1px;
-    background-color: green;
+    border: solid white 1px;
+    /* background-color: green; */
 
     font-size: 0.6rem;
 
     flex-grow: 1;
     overflow-y: auto;
     /* Syntax: scrollbar-color: [thumb-color] [track-color] */
-    scrollbar-color: #46474c #787e89;
+    scrollbar-color: #767676 #0f0f0f;
 
     .lap-row {
-      border: solid white 1px;
+      /* border: solid white 1px; */
+
+      &:nth-of-type(even) {
+        background-color: #3b3b3b;
+      }
 
       display: flex;
 
       .row-num {
         padding: 0.25em;
+        width: 2em;
+        justify-self: right;
       }
 
       .progress {
-        border: solid white 1px;
+        /* border: solid white 1px; */
         width: 3em;
         height: 0.75em;
         align-self: center;
@@ -42,6 +48,13 @@
 
       .time-display {
         padding: 0.25em;
+      }
+
+      .units {
+        padding: 0.25em;
+        margin-right: 0.25em;
+
+        align-self: center;
       }
     }
   }
@@ -53,6 +66,7 @@
 
     display: flex;
     gap: 0.5em;
+    justify-content: space-around;
   }
 
 

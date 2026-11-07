@@ -67,6 +67,7 @@ function LapRow({durationMs, index, lapDistanceMiles, maxDurationMs}){
     <div className='row-num'>{index + 1}</div>
     <ProgressBar value={durationMs} max={maxDurationMs}/>
     <TimeDisplay valueMs={pace} />
+    <div className='units'>pace</div>
   </div>
 }
 
@@ -125,7 +126,6 @@ function LapTimer() {
 
   return (
     <div className="lap-timer-app">
-      <BackButton />
       <div className="title">Lap Timer</div>
       <LapsPanel laps={laps} lapDistanceMiles={lapDistanceMiles} />
       <div className="totals">
