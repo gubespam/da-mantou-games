@@ -1,6 +1,7 @@
 
 .lap-timer-app {
   border: solid white 1px;
+  max-height: 80vh;
 
   display: flex;
   flex-direction: column;
@@ -18,6 +19,9 @@
     font-size: 0.6rem;
 
     flex-grow: 1;
+    overflow-y: auto;
+    /* Syntax: scrollbar-color: [thumb-color] [track-color] */
+    scrollbar-color: #46474c #787e89;
 
     .lap-row {
       border: solid white 1px;
