@@ -1,5 +1,55 @@
-.lap-timer-app {
 
+.lap-timer-app {
+  border: solid white 1px;
+
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    border: solid white 1px;
+
+    font-size: 0.8em;
+  }
+
+  .laps {
+    border: solid blue 1px;
+    background-color: green;
+
+    font-size: 0.6rem;
+
+    flex-grow: 1;
+
+    .lap-row {
+      border: solid white 1px;
+
+      display: flex;
+
+      .row-num {
+        padding: 0.25em;
+      }
+
+      .progress {
+        border: solid white 1px;
+        width: 3em;
+        height: 0.75em;
+        align-self: center;
+        flex-grow: 1;
+      }
+
+      .time-display {
+        padding: 0.25em;
+      }
+    }
+  }
+  
+  .totals {
+    /* border: solid white 1px; */
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    display: flex;
+    gap: 0.5em;
+  }
 
 
 } /* end of: .lap-timer-app
