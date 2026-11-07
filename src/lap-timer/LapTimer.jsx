@@ -48,7 +48,6 @@ function DistanceDisplay({value, units}){
 
 function ProgressBar({value, max}){
   const percentFilled = Math.floor(value * 100 / max)
-  // TODO styles to control bar width
   return <div className='progress'>
     <div className='bar'></div>
   </div>
@@ -133,7 +132,7 @@ function LapTimer() {
         <DistanceDisplay value={totalDistanceMiles} units="mi"/>
       </div>
       <div className="controls">
-        <button className='pay-pause-btn'>{'|>'}</button>
+        <button className='play-pause-btn'>{'|>'}</button>
         <button className='lap-btn'>Lap</button>
       </div>
     </div>

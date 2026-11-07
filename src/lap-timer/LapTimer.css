@@ -69,5 +69,29 @@
     justify-content: space-around;
   }
 
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+
+    button {
+      background-color: rgb(62 129 170);
+      color: white;
+
+      border: none;
+      padding: 1em;
+      padding-right: 1.5em;
+      padding-left: 1.5em;
+      margin: 1em;
+    }
+
+    .play-pause-btn {
+
+    }
+
+    .lap-btn {
+
+    }
+  }
 
 } /* end of: .lap-timer-app
