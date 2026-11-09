@@ -1,7 +1,11 @@
 
 .lap-timer-app {
-  border: solid white 1px;
-  max-height: 80vh;
+  border: solid;
+  border-radius: 1em;
+  border-width: 2px;
+  border-color: grey;
+
+  height: 80vh;
 
   display: flex;
   flex-direction: column;
@@ -12,8 +16,36 @@
     font-size: 0.8em;
   }
 
+  .lap-distance {
+    display: flex;
+    gap: 0.5em;
+
+    & > * {
+      margin: 0.5em;
+    }
+
+    .label {
+      font-size: 0.5em;
+    }
+
+    input {
+      width: 4em;
+
+      background-color: #0f0f0f;
+      border: solid grey 1px;
+      color: white;
+      text-align: center;
+
+      &:focus {
+        color: #6969ff;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
   .laps {
-    border: solid white 1px;
+    border: solid grey 1px;
     /* background-color: green; */
 
     font-size: 0.6rem;
@@ -32,29 +64,23 @@
 
       display: flex;
 
+      & > * {
+        margin: 0.25em;
+      }
+
       .row-num {
-        padding: 0.25em;
         width: 2em;
         justify-self: right;
       }
 
-      .progress {
+      .distance-display {
         /* border: solid white 1px; */
-        width: 3em;
-        height: 0.75em;
-        align-self: center;
         flex-grow: 1;
+        justify-content: flex-end; 
       }
 
       .time-display {
-        padding: 0.25em;
-      }
-
-      .units {
-        padding: 0.25em;
-        margin-right: 0.25em;
-
-        align-self: center;
+        width: 4em;
       }
     }
   }
@@ -67,12 +93,16 @@
     display: flex;
     gap: 0.5em;
     justify-content: space-around;
+
+    .time-display:nth-child(1) {
+      color: #9d9b9b;
+    }
   }
 
   .controls {
     display: flex;
     justify-content: center;
-    gap: 2em;
+    gap: 1em;
 
     button {
       background-color: rgb(62 129 170);
@@ -83,6 +113,12 @@
       padding-right: 1.5em;
       padding-left: 1.5em;
       margin: 1em;
+
+      border-radius: 0.75em;
+
+      &:disabled {
+        background-color: rgb(131 153 167);
+      }
     }
 
     .play-pause-btn {
@@ -90,7 +126,7 @@
     }
 
     .lap-btn {
-
+      font-weight: bold;
     }
   }
 
